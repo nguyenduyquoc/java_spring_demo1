@@ -1,24 +1,55 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <head>
     <meta charset="UTF-8">
     <title>List Student</title>
 </head>
 <body>
-    <h1>Student List</h1>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-        </tr>
-        <tr th:each="student : ${students}">
-            <td th:text="${student.getId()}"></td>
-            <td th:text="${student.getFirst_name()}"></td>
-            <td th:text="${student.getLast_name()}"></td>
-            <td th:text="${student.getEmail()}"></td>
-        </tr>
-    </table>
+
+    <div class="container center">
+        <h1 class="center">Student List</h1>
+        <form class="row g-3">
+            <div class="col-auto">
+                <a class="btn btn-secondary" th:href="@{/v1/students/add}">Add new Student</a>
+            </div>
+            <div class="col-auto">
+                <label class="visually-hidden">Search by name</label>
+                <input type="text" class="form-control" id="input" placeholder="Search by name">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-secondary mb-3">Search</button>
+            </div>
+        </form>
+        <!-- Content here -->
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Action 1</th>
+                <th scope="col">Action 2</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr th:each="student : ${students}">
+                <th scope="row" th:text="${student.getId()}"></th>
+                <td th:text="${student.getFirst_name()}"></td>
+                <td th:text="${student.getLast_name()}"></td>
+                <td th:text="${student.getEmail()}"></td>
+                <td><a th:href="@{/v1/students/edit(studentId=${student.getId()})}" type="button" class="btn btn-success">Edit</a></td>
+                <td><a class ="btn btn-danger" th:href="@{'/v1/students/delete/id=' + ${student.getId()}}"
+                       onclick="if (!(confirm('Are you sure you want to delete this student?'))) return false" >Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
 </body>
 </html>
