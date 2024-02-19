@@ -44,7 +44,7 @@ public class StudentController {
             return "student/add";
         } else {
             studentService.addNewStudent(newStudent);
-            return "redirect:/v1/students"; // Chuyển hướng sau khi xử lý
+            return "redirect:/v1/students";
         }
 
     }

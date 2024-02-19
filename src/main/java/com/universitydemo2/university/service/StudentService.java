@@ -41,12 +41,12 @@ public class StudentService implements IStudentService{
     public void updateStudent(Integer id, Student student) {
         Optional<Student> existedStudent = studentRepository.findById(id);
         if(existedStudent.isPresent()){
-            Student student1 = existedStudent.get();
-            student1.setFirst_name(student.getFirst_name());
-            student1.setLast_name(student.getLast_name());
-            student1.setEmail(student.getEmail());
+            Student newStudent = existedStudent.get();
+            newStudent.setFirst_name(student.getFirst_name());
+            newStudent.setLast_name(student.getLast_name());
+            newStudent.setEmail(student.getEmail());
 
-            studentRepository.save(student1);
+            studentRepository.save(newStudent);
         } else {
             student.setId(id);
             studentRepository.save(student);
